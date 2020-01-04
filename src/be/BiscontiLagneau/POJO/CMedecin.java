@@ -5,18 +5,31 @@ import java.time.LocalDate;
 import java.util.List;
 
 import be.BiscontiLagneau.Enum.Specialisation;
+import be.BiscontiLagneau.DAO.*;
 
 public class CMedecin extends CPersonne implements Serializable {
 	// Attributs
+	private int ID_Personne;
 	private String mdp;
 	private List<CTraitement> l_Traitements;
-	private long inami;
+	private Long inami;
 	private String adresseCabinet;
 	private LocalDate dateDiplome;
 	private Specialisation specialisation;
 
 	// Constructeur
 	public CMedecin() {
+	}
+	
+	//Méthodes
+	@Override
+	public String toString() {
+		
+		return "Docteur :" + this.getNom() + " " + this.getPrenom() + " numéro inami : " + this.getInami() + " adresse médecin : " + this.getAdresse();
+	}
+	public CMedecin recupMedecin(CMedecin m) {
+		DAOMedecin daoMedecin = new DAOMedecin(DAOConnexion.getInstance());
+		return daoMedecin.chercher(m);
 	}
 
 	// Accesseurs
@@ -60,13 +73,22 @@ public class CMedecin extends CPersonne implements Serializable {
 		this.specialisation = specialisation;
 	}
 	
-	public void setInami(long inami)
+	public void setInami(Long inami)
 	{
 		this.inami = inami;
 	}
 	
-	public long getInami()
+	public Long getInami()
 	{
 		return inami;
+	}
+	
+
+	public int getID_Personne() {
+		return ID_Personne;
+	}
+
+	public void setID_Personne(int iD_Personne) {
+		ID_Personne = iD_Personne;
 	}
 }
