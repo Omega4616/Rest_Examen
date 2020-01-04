@@ -22,8 +22,32 @@ public class DAOMedecin extends DAO<CMedecin>{
 	}
 
 	@Override
-	public boolean ajouter(CMedecin obj) {
-		// TODO Auto-generated method stub
+	public boolean ajouter(CMedecin medecin) {
+		try
+		{
+			String callStoreProc = "{call ajouterMedecin(?,?,?,?,?,?,?,?,?,?,?,?)}";
+        	CallableStatement callableStatement = this.connect.prepareCall(callStoreProc);
+        	callableStatement.setLong(1,medecin.getInami());
+        	callableStatement.setString(2,medecin.getNom());
+        	callableStatement.setString(3,medecin.getPrenom());
+        	callableStatement.setString(4,medecin.getMdp());
+        	callableStatement.setString(5,medecin.getAdresse());
+        	callableStatement.setString(6,medecin.getAdresseCabinet());
+        	callableStatement.setString(7,medecin.getSpecialisation().toString());
+        	//callableStatement.setDate(8,medecin.getDateNaissance());
+        	//callableStatement.setDate(9,medecin.getDateDiplome());
+        	callableStatement.setString(10,medecin.getSexe().toString());
+        	callableStatement.setLong(11,medecin.getInami());
+        	callableStatement.registerOutParameter(12,java.sql.Types.INTEGER);
+        	
+        	callableStatement.execute();
+        	
+        	int code = callableStatement.getInt(12);     
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
 		return false;
 	}
 
