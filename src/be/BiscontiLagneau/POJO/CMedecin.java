@@ -8,15 +8,23 @@ import be.BiscontiLagneau.Enum.Specialisation;
 
 public class CMedecin extends CPersonne implements Serializable {
 	// Attributs
+	private int ID_Personne;
 	private String mdp;
 	private List<CTraitement> l_Traitements;
-	private int inami;
+	private Long inami;
 	private String adresseCabinet;
 	private LocalDate dateDiplome;
 	private Specialisation specialisation;
 
 	// Constructeur
 	public CMedecin() {
+	}
+	
+	//Méthodes
+	@Override
+	public String toString() {
+		
+		return "Docteur :" + this.getNom() + " " + this.getPrenom() + " numéro inami : " + this.getInami() + " adresse médecin : " + this.getAdresse();
 	}
 
 	// Accesseurs
@@ -60,13 +68,22 @@ public class CMedecin extends CPersonne implements Serializable {
 		this.specialisation = specialisation;
 	}
 	
-	public void setInami(int inami)
+	public void setInami(Long inami)
 	{
 		this.inami = inami;
 	}
 	
-	public int getInami()
+	public Long getInami()
 	{
 		return inami;
+	}
+	
+
+	public int getID_Personne() {
+		return ID_Personne;
+	}
+
+	public void setID_Personne(int iD_Personne) {
+		ID_Personne = iD_Personne;
 	}
 }

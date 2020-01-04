@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import be.BiscontiLagneau.Enum.Genre;
 import be.BiscontiLagneau.Enum.Specialisation;
 import be.BiscontiLagneau.POJO.CMedecin;
 import be.BiscontiLagneau.POJO.CPatient;
@@ -89,9 +90,16 @@ public class DAOMedecin extends DAO<CMedecin>{
         	ResultSet rs = (ResultSet) callableStatement.getObject(3);
         	medecin = new CMedecin();
         	if (rs.next()) {
-        		//medecin.setInami(rs.getInt("num_inami"));
-        		medecin.setAdresse(rs.getString("adresse_cabinet"));
+        		medecin.setID_Personne(rs.getInt("ID_Personne"));
         		medecin.setNom(rs.getString("nom"));
+        		medecin.setPrenom(rs.getString("prenom"));
+        		medecin.setInami(rs.getLong("num_inami"));
+        		medecin.setAdresse(rs.getString("adresse"));
+        		medecin.setDateDiplome(rs.getDate("date_diplome").toLocalDate());
+        		medecin.setAdresseCabinet(rs.getString("adresse_cabinet"));
+        		medecin.setDateNaissance(rs.getDate("naissance").toLocalDate());
+        		medecin.setTelephone(rs.getString("telephone"));
+        		medecin.setSexe(Genre.fromString(rs.getString("sexe")));
 			}
 
         	System.out.println("salut");

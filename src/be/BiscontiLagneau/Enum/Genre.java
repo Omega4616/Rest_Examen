@@ -1,8 +1,8 @@
 package be.BiscontiLagneau.Enum;
 
 public enum Genre {
-	Homme("Homme"),
-	Femme("Femme");
+	Homme("homme"),
+	Femme("femme");
 	
 	private String genre;
 	
