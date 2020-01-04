@@ -2,6 +2,7 @@ package be.BiscontiLagneau.DAO;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -9,6 +10,8 @@ import java.util.List;
 import be.BiscontiLagneau.Enum.Specialisation;
 import be.BiscontiLagneau.POJO.CMedecin;
 import be.BiscontiLagneau.POJO.CPatient;
+import oracle.jdbc.OracleTypes;
+import oracle.jdbc.oracore.OracleType;
 
 public class DAOMedecin extends DAO<CMedecin>{
 
@@ -40,20 +43,24 @@ public class DAOMedecin extends DAO<CMedecin>{
 		CMedecin medecin = null;
         try
         {
-        	String callStoreProc = "{call authentificationmedecinP(?,?,?,?)}";
+        	String callStoreProc = "{call ? = authentificationMedecin(?,?,?)}";
         	CallableStatement callableStatement = this.connect.prepareCall(callStoreProc);
         	long numInami = 14689278354L;
         	String motdepasse = "test";
-        	callableStatement.setLong(1, numInami);
-        	callableStatement.setString(2, motdepasse);
-        	callableStatement.registerOutParameter(3, java.sql.Types.VARCHAR);
+        	callableStatement.setLong(2, numInami);
+        	callableStatement.setString(3, motdepasse);
         	callableStatement.registerOutParameter(4, java.sql.Types.INTEGER);
+        	callableStatement.registerOutParameter(1, OracleTypes.CURSOR);
         	
-        	callableStatement.executeUpdate();
         	
-        	String med = callableStatement.getString(3);
-        	int pwd = callableStatement.getInt(4);
-        	System.out.println(med + " " + pwd);
+        	String med = "";
+        	callableStatement.executeQuery();
+        	ResultSet rs = (ResultSet)callableStatement.getObject(1);
+        	while(rs.next()) {
+        		med = rs.getString("SPECIALISATION");
+        	}
+        	//int pwd = callableStatement.getInt(3);
+        	System.out.println(med + " " + "salut");
         }
         catch(SQLException e)
         {
@@ -61,38 +68,40 @@ public class DAOMedecin extends DAO<CMedecin>{
         }
         return medecin;
 	}
-	public String chercherTest() {
+	public CMedecin chercherTest() {
 		CMedecin medecin = null;
 		String med = "";
 		int pwd = 0;
         try
         {
-        	String callStoreProc = "{call authentificationmedecinP(?,?,?,?)}";
+        	//
+        	// authentificationM_PCursor(var_inami IN INTEGER, var_mdp IN medecins.mdp%type, m_cursor OUT SYS_REFCURSOR)
+        	//
+        	String callStoreProc = "{call authentificationM_PCursor(?,?,?)}";
         	CallableStatement callableStatement = this.connect.prepareCall(callStoreProc);
         	long numInami = 14689278354L;
         	String motdepasse = "test";
-        	callableStatement.setInt(1, (int) 14689278354L);
+        	callableStatement.setLong(1, numInami);
         	callableStatement.setString(2, motdepasse);
-        	callableStatement.registerOutParameter(3, java.sql.Types.VARCHAR);
-        	callableStatement.registerOutParameter(4, java.sql.Types.INTEGER);
+        	callableStatement.registerOutParameter(3, OracleTypes.CURSOR);
         	
-        	callableStatement.executeUpdate();
-        	
-        	//med = callableStatement.getString(3);
-        	ResultSet resultSet = (ResultSet)callableStatement.getObject(3);
-        	while (resultSet.next()) {
-				med += resultSet.getString("num_inami");
-				med += " ";
-				med += resultSet.getString("specialisation");
+        	callableStatement.execute();
+        	ResultSet rs = (ResultSet) callableStatement.getObject(3);
+        	medecin = new CMedecin();
+        	if (rs.next()) {
+        		//medecin.setInami(rs.getInt("num_inami"));
+        		medecin.setAdresse(rs.getString("adresse_cabinet"));
+        		medecin.setNom(rs.getString("nom"));
 			}
-        	//pwd = callableStatement.getInt(4);
-        	System.out.println(med);
+
+        	System.out.println("salut");
         }
         catch(SQLException e)
         {
             e.printStackTrace();
+            System.out.println("sql exception");
         }
-        return med;
+        return medecin;
 	}
 
 	@Override
