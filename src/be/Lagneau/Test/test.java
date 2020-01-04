@@ -9,7 +9,7 @@ public class test {
 	public static void main(String[] args) {
 		System.out.println("ICI COUCOU");
 		DAOMedecin daoMedecin = new DAOMedecin(DAOConnexion.getInstance());
-		CMedecin c = daoMedecin.chercherTest();
+		CMedecin c = daoMedecin.chercher(null);
 		System.out.println(c.toString());
 		System.out.println(c.getSexe());
 	}

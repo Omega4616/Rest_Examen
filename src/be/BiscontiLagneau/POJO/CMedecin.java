@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import be.BiscontiLagneau.Enum.Specialisation;
+import be.BiscontiLagneau.DAO.*;
 
 public class CMedecin extends CPersonne implements Serializable {
 	// Attributs
@@ -25,6 +26,10 @@ public class CMedecin extends CPersonne implements Serializable {
 	public String toString() {
 		
 		return "Docteur :" + this.getNom() + " " + this.getPrenom() + " numéro inami : " + this.getInami() + " adresse médecin : " + this.getAdresse();
+	}
+	public CMedecin recupMedecin(CMedecin m) {
+		DAOMedecin daoMedecin = new DAOMedecin(DAOConnexion.getInstance());
+		return daoMedecin.chercher(m);
 	}
 
 	// Accesseurs

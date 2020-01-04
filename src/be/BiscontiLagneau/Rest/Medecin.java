@@ -15,30 +15,19 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import be.BiscontiLagneau.POJO.CMedecin;
-
+@Path("Medecin")
 public class Medecin {
-	/*
-	@Path("getMedecin")
+	
+	@Path("authentification")
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
-	public Response getClientJSON(@QueryParam("id") int id) {
-
+	public Response getClientJSON(@QueryParam("inami") long inami, @QueryParam("mdp") String mdp) {
 		CMedecin medecin = new CMedecin();
-		
-		String sql = "{? = call max(?, ?)}"; 
-		CallableStatement statement = connection.prepareCall(sql, 
-		          ResultSet.TYPE_FORWARD_ONLY, 
-		          ResultSet.CONCUR_READ_ONLY);
-		
-		cli.setNom(nom);
-		cli.setPrenom(prenom);
-		cli.setAge(age);
-		/*
-		 * String chaine = "{" +"\"client\": {" +"	\"nom\": \" "+ nom + "\", "
-		 * +"	\"prenom\": \" " + prenom + "\", " +"	\"age\": " + age + " " +"}"
-		 * +"}";
-		 */
-	//	return Response.status(Status.OK).entity(cli).build();
-	//}
+		CMedecin m = new CMedecin();
+		m.setInami(inami);
+		m.setMdp(mdp);
+		medecin = medecin.recupMedecin(m);
+		return Response.status(Status.OK).entity(medecin).build();
+	}
 
 }
