@@ -40,39 +40,8 @@ public class DAOMedecin extends DAO<CMedecin>{
 	}
 
 	@Override
-	public CMedecin chercher(CMedecin obj) {
+	public CMedecin chercher(CMedecin m) {
 		CMedecin medecin = null;
-        try
-        {
-        	String callStoreProc = "{call ? = authentificationMedecin(?,?,?)}";
-        	CallableStatement callableStatement = this.connect.prepareCall(callStoreProc);
-        	long numInami = 14689278354L;
-        	String motdepasse = "test";
-        	callableStatement.setLong(2, numInami);
-        	callableStatement.setString(3, motdepasse);
-        	callableStatement.registerOutParameter(4, java.sql.Types.INTEGER);
-        	callableStatement.registerOutParameter(1, OracleTypes.CURSOR);
-        	
-        	
-        	String med = "";
-        	callableStatement.executeQuery();
-        	ResultSet rs = (ResultSet)callableStatement.getObject(1);
-        	while(rs.next()) {
-        		med = rs.getString("SPECIALISATION");
-        	}
-        	//int pwd = callableStatement.getInt(3);
-        	System.out.println(med + " " + "salut");
-        }
-        catch(SQLException e)
-        {
-            e.printStackTrace();
-        }
-        return medecin;
-	}
-	public CMedecin chercherTest() {
-		CMedecin medecin = null;
-		String med = "";
-		int pwd = 0;
         try
         {
         	//
@@ -80,13 +49,13 @@ public class DAOMedecin extends DAO<CMedecin>{
         	//
         	String callStoreProc = "{call authentificationM_PCursor(?,?,?)}";
         	CallableStatement callableStatement = this.connect.prepareCall(callStoreProc);
-        	long numInami = 14689278354L;
-        	String motdepasse = "test";
+        	long numInami = m.getInami();
+        	String motdepasse = m.getMdp();
         	callableStatement.setLong(1, numInami);
         	callableStatement.setString(2, motdepasse);
-        	callableStatement.registerOutParameter(3, OracleTypes.CURSOR);
-        	
+        	callableStatement.registerOutParameter(3, OracleTypes.CURSOR);	
         	callableStatement.execute();
+        	
         	ResultSet rs = (ResultSet) callableStatement.getObject(3);
         	medecin = new CMedecin();
         	if (rs.next()) {
@@ -102,12 +71,10 @@ public class DAOMedecin extends DAO<CMedecin>{
         		medecin.setSexe(Genre.fromString(rs.getString("sexe")));
 			}
 
-        	System.out.println("salut");
         }
         catch(SQLException e)
         {
             e.printStackTrace();
-            System.out.println("sql exception");
         }
         return medecin;
 	}
