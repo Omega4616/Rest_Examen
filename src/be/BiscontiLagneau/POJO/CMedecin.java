@@ -10,7 +10,7 @@ public class CMedecin extends CPersonne implements Serializable {
 	// Attributs
 	private String mdp;
 	private List<CTraitement> l_Traitements;
-	private int inami;
+	private long inami;
 	private String adresseCabinet;
 	private LocalDate dateDiplome;
 	private Specialisation specialisation;
@@ -60,12 +60,12 @@ public class CMedecin extends CPersonne implements Serializable {
 		this.specialisation = specialisation;
 	}
 	
-	public void setInami(int inami)
+	public void setInami(long inami)
 	{
 		this.inami = inami;
 	}
 	
-	public int getInami()
+	public long getInami()
 	{
 		return inami;
 	}
