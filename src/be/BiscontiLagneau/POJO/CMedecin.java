@@ -25,7 +25,7 @@ public class CMedecin extends CPersonne implements Serializable {
 	@Override
 	public String toString() {
 		
-		return "Docteur :" + this.getNom() + " " + this.getPrenom() + " numÃ©ro inami : " + this.getInami() + " adresse mÃ©decin : " + this.getAdresse();
+		return "Docteur :" + this.getNom() + " " + this.getPrenom() + " numéro inami : " + this.getInami() + " adresse médecin : " + this.getAdresse();
 	}
 	public CMedecin recupMedecin(CMedecin m) {
 		DAOMedecin daoMedecin = new DAOMedecin(DAOConnexion.getInstance());

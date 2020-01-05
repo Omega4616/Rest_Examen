@@ -93,6 +93,7 @@ public class DAOMedecin extends DAO<CMedecin>{
         		medecin.setDateNaissance(rs.getDate("naissance").toLocalDate());
         		medecin.setTelephone(rs.getString("telephone"));
         		medecin.setSexe(Genre.fromString(rs.getString("sexe")));
+        		medecin.setSpecialisation(Specialisation.fromString(rs.getString("specialisation")));
 			}
 
         }
