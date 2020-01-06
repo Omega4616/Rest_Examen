@@ -7,6 +7,7 @@ import be.BiscontiLagneau.Enum.Prise;
 
 public class CCure implements Serializable{
 	// Attributs
+	private static final long serialVersionUID = 1L;
 	private LocalDate dateDebut;
 	private int duree;
 	private CMedicament medicament;

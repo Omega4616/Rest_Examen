@@ -6,6 +6,7 @@ import java.util.List;
 
 public class CTraitement implements Serializable{
 	// Attributs
+	private static final long serialVersionUID = 1L;
 	private LocalDate dateIntroduction;
 	private String symptome;
 	private List<CCure> l_cures;

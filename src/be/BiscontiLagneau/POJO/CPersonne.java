@@ -7,6 +7,7 @@ import be.BiscontiLagneau.Enum.Genre;
 
 public abstract class CPersonne implements Serializable{
 	// Attributs
+	private static final long serialVersionUID = 1L;
 	protected String nom;
 	protected String prenom;
 	protected LocalDate dateNaissance;
