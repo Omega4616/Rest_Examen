@@ -9,6 +9,7 @@ import be.BiscontiLagneau.DAO.*;
 
 public class CMedecin extends CPersonne implements Serializable {
 	// Attributs
+	private static final long serialVersionUID = 1L;
 	private int ID_Personne;
 	private String mdp;
 	private List<CTraitement> l_Traitements;
