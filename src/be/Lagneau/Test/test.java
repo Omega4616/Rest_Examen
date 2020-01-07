@@ -1,6 +1,4 @@
 package be.Lagneau.Test;
-import javax.swing.JOptionPane;
-
 import be.BiscontiLagneau.DAO.*;
 import be.BiscontiLagneau.POJO.CMedecin;
 
