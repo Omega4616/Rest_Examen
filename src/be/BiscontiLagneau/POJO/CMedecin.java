@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-import be.BiscontiLagneau.Enum.Specialisation;
 import be.BiscontiLagneau.DAO.*;
+import be.BiscontiLagneau.Enum.Specialisation;
 
 public class CMedecin extends CPersonne implements Serializable {
 	// Attributs
