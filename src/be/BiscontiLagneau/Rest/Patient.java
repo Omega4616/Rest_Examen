@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response.Status;
 
 import be.BiscontiLagneau.Enum.Genre;
 import be.BiscontiLagneau.POJO.CPatient;
+import be.BiscontiLagneau.json.Response.codeResponse;
 
 @Path("Patient")
 public class Patient {
@@ -36,6 +37,7 @@ public class Patient {
 								 , @QueryParam("adresse") String adresse, @QueryParam("nrn") long nrn, @QueryParam("sexe") String sexe
 								 , @QueryParam("telephone") String telephone ) {
 		Boolean estAjouter;
+		codeResponse reponse = new codeResponse();
 		LocalDate date = LocalDate.parse(naissance);
 		CPatient cPatient = new CPatient();
 				cPatient.setNom(nom);
@@ -47,9 +49,15 @@ public class Patient {
 				cPatient.setTelephone(telephone);
 				
 		estAjouter = cPatient.ajouter(cPatient);
+		if (estAjouter) {
+			reponse.setReponse(1);
+		}
+		else {
+			reponse.setReponse(0);
+		}
 				
 		
-		return Response.status(Status.OK).entity(estAjouter).build();
+		return Response.status(Status.OK).entity(reponse).build();
 	}
 	
 
