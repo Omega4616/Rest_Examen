@@ -1,12 +1,9 @@
 package be.Lagneau.Test;
-<<<<<<< Updated upstream
-import javax.swing.JOptionPane;
-=======
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
->>>>>>> Stashed changes
+
 
 import be.BiscontiLagneau.DAO.*;
 import be.BiscontiLagneau.Enum.Genre;
