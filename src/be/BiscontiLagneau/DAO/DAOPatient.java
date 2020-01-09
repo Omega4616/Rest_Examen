@@ -73,8 +73,38 @@ public class DAOPatient extends DAO<CPatient>{
 
 	@Override
 	public CPatient chercher(CPatient obj) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		CPatient Patient = new CPatient();
+        try
+        {
+        	//
+        	// trouverPatient(var_IDPatient IN INTEGER, p_cursor OUT SYS_REFCURSOR)
+        	//
+        	String callStoreProc = "{call trouverPatient(?,?)}";
+        	CallableStatement callableStatement = this.connect.prepareCall(callStoreProc);
+        	callableStatement.setInt(1, obj.getID_Patient());
+        	callableStatement.registerOutParameter(2, OracleTypes.CURSOR);	
+        	callableStatement.execute();
+        	
+        	ResultSet rs = (ResultSet) callableStatement.getObject(2);
+        	if (rs.next()) {
+        		Patient.setID_Patient(rs.getInt("ID_Personne"));
+        		Patient.setNom(rs.getString("nom"));
+        		Patient.setPrenom(rs.getString("prenom"));
+        		Patient.setDateNaissance(rs.getDate("naissance").toLocalDate());
+        		Patient.setAdresse(rs.getString("adresse"));
+        		Patient.setSexe(Genre.fromString(rs.getString("sexe").toLowerCase()));
+        		Patient.setTelephone(rs.getString("telephone"));
+        		Patient.setNrn(rs.getLong("nss"));
+			}
+
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+        return Patient;
 	}
 
 	@Override
@@ -108,6 +138,7 @@ public class DAOPatient extends DAO<CPatient>{
         catch(SQLException e)
         {
             e.printStackTrace();
+            return null;
         }
         return ListePatients;
 	}

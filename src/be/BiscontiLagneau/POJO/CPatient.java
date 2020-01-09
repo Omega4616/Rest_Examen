@@ -34,13 +34,17 @@ public class CPatient extends CPersonne implements Serializable{
 		DAOPatient daoPatient = new DAOPatient(DAOConnexion.getInstance());
 		return daoPatient.ajouter(patient);
 	}
+	public CPatient chercher(CPatient patient) {
+		DAOPatient daoPatient = new DAOPatient(DAOConnexion.getInstance());
+		return daoPatient.chercher(patient);
+	}
 	//Accesseurs
 	public int getID_Patient() {
 		return ID_Patient;
 	}
 
-	public void setID_Patient(int iD_Patient) {
-		ID_Patient = iD_Patient;
+	public void setID_Patient(int ID_Patient) {
+		this.ID_Patient = ID_Patient;
 	}
 	
 	public long getNrn()

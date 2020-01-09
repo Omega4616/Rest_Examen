@@ -24,7 +24,7 @@ public class Patient {
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
 	public Response getAllPatientsJSON() {
-		List<CPatient> patients = new ArrayList<CPatient>();
+		ArrayList<CPatient> patients = new ArrayList<CPatient>();
 		CPatient cPatient = new CPatient();
 		patients = cPatient.recuperTousPatients();
 		return Response.status(Status.OK).entity(patients).build();
@@ -58,6 +58,16 @@ public class Patient {
 				
 		
 		return Response.status(Status.OK).entity(reponse).build();
+	}
+	
+	@Path("chercherPatient")
+	@Produces(MediaType.APPLICATION_JSON)
+	@GET
+	public Response getPatientJSON(@QueryParam("nom") int ID_Patient) {
+		CPatient patient = new CPatient();
+		patient.setID_Patient(ID_Patient);
+		patient = patient.chercher(patient);
+		return Response.status(Status.OK).entity(patient).build();
 	}
 	
 
