@@ -63,11 +63,12 @@ public class Patient {
 	@Path("chercherPatient")
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
-	public Response getPatientJSON(@QueryParam("nom") int ID_Patient) {
+	public Response getPatientJSON(@QueryParam("IDPatient") int ID_Patient) {
 		CPatient patient = new CPatient();
 		patient.setID_Patient(ID_Patient);
-		patient = patient.chercher(patient);
-		return Response.status(Status.OK).entity(patient).build();
+		CPatient cPatient = new CPatient();
+		cPatient = patient.chercher(patient);
+		return Response.status(Status.OK).entity(cPatient).build();
 	}
 	
 
