@@ -39,9 +39,34 @@ public class DAOMedicament extends DAO<CMedicament> {
 	}
 
 	@Override
-	public CMedicament chercher(CMedicament obj) {
-		// TODO Auto-generated method stub
-		return null;
+	public CMedicament chercher(CMedicament medicament) {
+		CMedicament Medicament = new CMedicament();
+        try
+        {
+        	//
+        	// trouverMedicament(var_IDMedicament IN INTEGER, m_cursor OUT SYS_REFCURSOR)
+        	//
+        	String callStoreProc = "{call trouverMedicament(?,?)}";
+        	CallableStatement callableStatement = this.connect.prepareCall(callStoreProc);
+        	callableStatement.setInt(1, medicament.getID_Medicament());
+        	callableStatement.registerOutParameter(2, OracleTypes.CURSOR);	
+        	callableStatement.execute();
+        	
+        	ResultSet rs = (ResultSet) callableStatement.getObject(2);
+        	if (rs.next()) {
+        		Medicament.setID_Medicament(rs.getInt("ID_Medicament"));
+        		Medicament.setNom(rs.getString("nom"));
+        		Medicament.setDescription(rs.getString("description"));
+        		Medicament.setType(rs.getString("type"));
+        		Medicament.setDosage_jour_max(rs.getString("dosage_jour_max"));
+			}
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+        return Medicament;
 	}
 
 	@Override
