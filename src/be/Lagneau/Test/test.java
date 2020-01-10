@@ -7,8 +7,7 @@ import java.util.Iterator;
 
 import be.BiscontiLagneau.DAO.*;
 import be.BiscontiLagneau.Enum.Genre;
-import be.BiscontiLagneau.POJO.CMedecin;
-import be.BiscontiLagneau.POJO.CPatient;
+import be.BiscontiLagneau.POJO.*;
 
 public class test {
 	
@@ -35,11 +34,12 @@ public class test {
 				cPatient.setSexe(Genre.Femme);
 				cPatient.setTelephone("097654321");
 		System.out.println(daoPatient.ajouter(cPatient));*/
+		/*
 		CPatient cPatient = new CPatient();
 		cPatient.setID_Patient(63);
 		CPatient cPatient2 = new CPatient();
 		cPatient2 = cPatient2.chercher(cPatient);
-		System.out.println(cPatient2.getNom() + "  " + cPatient2.getSexe() + " " + cPatient2.getNrn() );
+		System.out.println(cPatient2.getNom() + "  " + cPatient2.getSexe() + " " + cPatient2.getNrn() );*/
 		/*
 		LocalDate date = LocalDate.of(2010, 05, 21);
 		String dateS = date.toString();
@@ -48,6 +48,12 @@ public class test {
 		System.out.println("date : " + date);
 		System.out.println("dateS : " + dateS);
 		System.out.println("date2 : " + date2);
+		
 		*/
+		CMedicament m = new CMedicament();
+		CMedicament me = new CMedicament();
+		me.setID_Medicament(21);
+		m = me.chercher(me);
+		System.out.println(m.getNom());
 	}
 }
