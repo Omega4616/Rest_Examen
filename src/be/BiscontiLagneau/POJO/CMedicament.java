@@ -34,6 +34,10 @@ public class CMedicament implements Serializable {
 		DAOMedicament daoMedicament = new DAOMedicament(DAOConnexion.getInstance());
 		return daoMedicament.recupererTout();
 	}
+	public CMedicament chercher(CMedicament medicament) {
+		DAOMedicament daoMedicament= new DAOMedicament(DAOConnexion.getInstance());
+		return daoMedicament.chercher(medicament);
+	}
 	
 	// Accesseurs
 	
